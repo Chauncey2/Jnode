@@ -1,5 +1,13 @@
 package chameleon;
 
+/*Summary
+ * 1. 子类可以覆写父类方法，覆写在子类的方法改变了父类方法的行为
+ * 2. java 的方法调用总是作用于运行期对象的实际类型，这种行为成为多态。
+ * 3. final
+ *   final定义的方法阻止了子类覆写
+ *   final定义的类，阻止了子类继承
+ *   final 定义的field必须在创建对象时被初始化，随后不可修改。
+ * */
 public class Main {
     public static void main(String[] args) {
         System.out.println("This is main method.");
@@ -20,7 +28,7 @@ public class Main {
                 new StateCouncilSpecialAllowance(15000)
         };
         System.out.println(totalTax(incomes));
-
+        totalTax();
     }
 
     public static void runTwice(Person p) {
@@ -33,6 +41,9 @@ public class Main {
     }
 
     public static double totalTax(Income... incomes) {
+        /*
+         * 1. 可变长度参数列表 Income... incomes 可以允许方法这 【无参调用 totalTax();】
+         * */
         double total = 0;
         for (Income income : incomes) {
             total = total + income.getTax();
@@ -41,7 +52,43 @@ public class Main {
     }
 }
 
-/*2*/
+/*3
+ * 复写Object 方法
+ * */
+
+class person {
+    protected String name;
+
+    @Override
+    public String toString() {
+        return "Person:name" + name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof person) {
+            person p = (person) obj;
+            return this.name.equals(p.name);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
+    public final String hello1() {
+        /*
+         * final 最终的意思，定义为最终的方法，不能被子类复写（Override）
+         * */
+        return "Hello" + name;
+    }
+}
+
+
+/*2
+ * */
 class Income {
     protected double income;
 
