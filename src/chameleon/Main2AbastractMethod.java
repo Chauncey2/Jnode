@@ -21,10 +21,19 @@ public class Main2AbastractMethod {
         * */
         Person2 stu2 = new Student2();
         stu2.run();
+        stu2.sayHello();
     }
 }
 
-abstract class Person2{
+class hello{
+    public void sayHello(){
+        System.out.println("Hello");
+    }
+}
+/*
+* 抽象方法可以继承普通类
+* */
+abstract class Person2 extends hello{
     /*
     * 抽象类可以强迫子类必须实现它定义的方法
     * */
